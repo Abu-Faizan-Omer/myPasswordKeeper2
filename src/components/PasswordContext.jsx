@@ -1,25 +1,30 @@
-import { useState,useContext, createContext, Children } from "react"
+import { useState, createContext } from "react";
 
-const PasswordContextapi=createContext()
+const PasswordContextapi = createContext();
 
-const PasswordProvider=({children})=>{
-const [password,setPassword]=useState([])
-const [editItem,setEditItem]=useState(null)
-const [Delete,setDeletePassword]=useState(null)
-const [isModalOpen,setIsModalOpen]=useState(false)
+const PasswordProvider = ({ children }) => {
+  const [password, setPassword] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const addPassword=(title,password)=>{
-    setPassword([{id:Date.now(),title,password}])
-}
-const edit=()=>{
-    setPassword([{id:Date.now(),title,password}])
-}
+  // Add new password without overwriting old entries
+  const addPassword = (title, pass) => {
+    setPassword(prevPasswords => [
+      ...prevPasswords,
+      { id: Date.now(), title, password: pass }
+    ]);
+  };
 
-return(
-    <PasswordContextapi.Provider value={{password,addPassword,setPassword,setIsModalOpen,isModalOpen}}>
+  return (
+    <PasswordContextapi.Provider value={{
+      password,
+      addPassword,
+      setIsModalOpen,
+      isModalOpen
+    }}>
       {children}
     </PasswordContextapi.Provider>
-)
-}
-export default PasswordProvider
-export {PasswordContextapi}
+  );
+};
+
+export default PasswordProvider;
+export { PasswordContextapi };

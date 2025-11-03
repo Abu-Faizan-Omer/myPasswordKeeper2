@@ -1,17 +1,23 @@
+import { useContext } from "react";
+import { PasswordContextapi } from "./PasswordContext";
 
+const PasswordList = () => {
+  const { password } = useContext(PasswordContextapi);
 
-function PasswordList()
-{
-    return (
-        <>
-         <div>all Password list edit and delete
-            <div className="passwordList">
-                <p>this is passwordlist div</p>
+  if (password.length === 0) {
+    return <p>No Password There</p>;
+  }
 
-            </div>
-         </div>
-        </>
-    )
+  return (
+    <div>
+      {password.map(item => (
+        <div key={item.id} className="passwordList">
+          <h4>{item.title}</h4>
+          <p>{item.password}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-}
-export default PasswordList
+export default PasswordList;
