@@ -5,7 +5,7 @@ const PasswordModel = () => {
   const { setIsModalOpen, addPassword } = useContext(PasswordContextapi);
 
   const [title, setTitle] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");//locally for only hold form password
 
   const handleSubmit = (e) => {
     e.preventDefault();
